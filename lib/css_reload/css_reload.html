@@ -1,0 +1,17 @@
+<script type="text/javascript"> 
+  $(document).ready(function() {
+    var reloadCss = function() {
+      $.get(location.href); // to regenerate css using sass
+      
+      $('link[rel=stylesheet]').each(function() {
+        var that = $(this);
+        var param = (new Date()).getTime();
+        var href = that.attr('href').replace(/\?.*/, '?' + param);
+        that.attr('href', href);
+      });
+      setTimeout(reloadCss, 5000);
+    };
+
+    setTimeout(reloadCss, 5000);
+  });
+</script>
