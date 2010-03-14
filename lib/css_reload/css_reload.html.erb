@@ -1,0 +1,27 @@
+<script type="text/javascript"> 
+  $(document).ready(function() {
+    // to regenerate css using sass
+    var rerequest = function() {
+      console.log('rerequest');
+      $.get(location.href);
+      setTimeout(rerequest, <%= time %>);
+    };
+
+    var reloadCss = function() {
+      console.log('reloadCss');
+      $('link[rel=stylesheet]').each(function() {
+        var that = $(this);
+        var param = (new Date()).getTime();
+        var href = that.attr('href').replace(/\?.*/, '?' + param);
+        that.attr('href', href);
+      });
+      setTimeout(reloadCss, <%= time %>);
+    };
+
+    setTimeout(rerequest, <%= time %>);
+    // reload css after 0.5 sec for rerequest.
+    setTimeout(function() {
+      setTimeout(reloadCss, <%= time %>);
+    }, 0.5)
+  });
+</script>
